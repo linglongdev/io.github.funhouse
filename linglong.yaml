@@ -1,0 +1,28 @@
+version: "1"
+
+package:
+  id: io.github.funhouse
+  name: funhouse
+  version: 0.0.0.1
+  kind: app
+  description: |
+    Cross-platform QStyle for traditionalists
+
+command:
+  - /opt/apps/io.github.funhouse/files/bin/funhouse
+
+base: org.deepin.foundation/23.0.0
+runtime: org.deepin.Runtime/23.0.1
+
+sources:
+  - kind: git
+    url: https://github.com/wjyrich/funhouse.git
+    version: master
+    commit: 512c96bc14d10eb74a406bf31ccee297fe42de27
+
+build: |
+  cd /project/linglong/sources/funhouse.git
+  cd funhouse
+  qmake -makefile PREFIX=${PREFIX} LIB_INSTALL_DIR=${PREFIX}/lib/${TRIPLET}
+  make -j$(nproc)
+  make install
